@@ -1,32 +1,45 @@
 "use client";
 import React from "react";
-import dynamic from "next/dynamic";
-
-const AnimatedNumbers = dynamic(
-  () => {
-    return import("react-animated-numbers");
-  },
-  { ssr: false }
-);
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPython, faCss3Alt, faHtml5, faReact, faGitAlt, faLinux } from '@fortawesome/free-brands-svg-icons';
+import { faDatabase, faServer } from '@fortawesome/free-solid-svg-icons';
 
 const achievementsList = [
   {
-    metric: "Loyihalar",
-    value: "100",
-    postfix: "+",
+    metric: "Python",
+    icon: faPython,
   },
   {
-    prefix: "~",
-    metric: "Mijozlar",
-    value: "100,000",
+    metric: "Django",
+    icon: faReact, // Django uchun maxsus icon mavjud emas, React iconidan foydalanamiz
   },
   {
-    metric: "Mukofotlar",
-    value: "7",
+    metric: "CSS",
+    icon: faCss3Alt,
   },
   {
-    metric: "Yillar",
-    value: "5",
+    metric: "HTML",
+    icon: faHtml5,
+  },
+  {
+    metric: "React",
+    icon: faReact,
+  },
+  {
+    metric: "Git",
+    icon: faGitAlt,
+  },
+  {
+    metric: "Linux",
+    icon: faLinux,
+  },
+  {
+    metric: "PostgreSQL",
+    icon: faDatabase,
+  },
+  {
+    metric: "SQLite3",
+    icon: faServer,
   },
 ];
 
@@ -38,26 +51,13 @@ const AchievementsSection = () => {
           return (
             <div
               key={index}
-              className="flex flex-col items-center justify-center mx-4 my-4 sm:my-0"
+              className="flex flex-col items-center justify-center mx-4 my-4 sm:my-0 transition-transform duration-300 hover:scale-110 hover:bg-[#0ef] hover:text-white p-4 rounded-md"
+              style={{ transition: 'all 0.3s ease-in-out' }}
             >
-              <h2 className="text-white text-4xl font-bold flex flex-row">
-                {achievement.prefix}
-                <AnimatedNumbers
-                  includeComma
-                  animateToNumber={parseInt(achievement.value)}
-                  locale="uz-UZ"  
-                  className="text-[#0ef] text-4xl font-bold"
-                  configs={(_, index) => {
-                    return {
-                      mass: 1,
-                      friction: 100,
-                      tensions: 140 * (index + 1),
-                    };
-                  }}
-                />
-                {achievement.postfix}
-              </h2>
-              <p className="text-[#ADB7BE] text-base">{achievement.metric}</p>
+              <div className="text-4xl mb-2 transition-transform duration-300 hover:scale-125" style={{ transition: 'all 0.3s ease-in-out' }}>
+                <FontAwesomeIcon icon={achievement.icon} />
+              </div>
+              <p className="text-white text-xl font-bold">{achievement.metric}</p>
             </div>
           );
         })}
@@ -67,6 +67,3 @@ const AchievementsSection = () => {
 };
 
 export default AchievementsSection;
-
-
-
