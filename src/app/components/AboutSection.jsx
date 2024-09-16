@@ -5,7 +5,7 @@ import TabButton from "./TabButton";
 
 const TAB_DATA = [
   {
-    title: "Ko'nikmalar",
+    title: "Ko&apos;nikmalar",
     id: "skills",
     content: (
       <ul className="list-disc pl-2">
@@ -20,12 +20,12 @@ const TAB_DATA = [
     ),
   },
   {
-    title: "Ta'lim",
+    title: "Ta&apos;lim",
     id: "education",
     content: (
       <ul className="list-disc pl-2">
-        <li>IT centerda 6 oy backend kursini o'qidim va ko'plab Texnalogiyalarni o'rgandim </li>
-        <li>Online tarzda ko'plar (Portgreslq, Sqlite3, Telegram botlar) va shunga o'xshagan texnalogiyalarni o'rgandim </li>
+        <li>IT centerda 6 oy backend kursini o&apos;qidim va ko&apos;plab texnologiyalarni o&apos;rgandim</li>
+        <li>Online tarzda ko&apos;plar (PostgreSQL, Sqlite3, Telegram botlar) va shunga o&apos;xshagan texnologiyalarni o&apos;rgandim</li>
       </ul>
     ),
   },
@@ -34,7 +34,7 @@ const TAB_DATA = [
     id: "certifications",
     content: (
       <ul className="list-disc pl-2">
-        <li>IT center o'quv markazi sertifikati</li>
+        <li>IT center o&apos;quv markazi sertifikati</li>
         {/* <li>Google Professional Cloud Developer</li> */}
       </ul>
     ),
@@ -54,33 +54,30 @@ const AboutSection = () => {
   return (
     <section className="text-white" id="about">
       <div className="md:grid md:grid-cols-2 gap-8 items-center py-8 px-4 xl:gap-16 sm:py-16 xl:px-16">
-        <Image src="/images/project.png" width={500} height={500} />
+        <Image src="/images/project.png" width={500} height={500} alt="Project Image" />
         <div className="mt-4 md:mt-0 text-left flex flex-col h-full">
-          <h2 className="text-4xl text-[#0ef] font-bold text-white mb-8">Malumot</h2>
+          <h2 className="text-4xl text-[#0ef] font-bold text-white mb-8">Ma&apos;lumot</h2>
           <p className="text-base lg:text-lg">
-          Men orzularini amalga oshirishga intiluvchi dasturchiman. Dasturlash sohasida, ayniqsa backend yo'nalishida chuqur bilimga ega bo'lib, samaradorlikka intilaman. FastAPI, Django va Telegram botlar bilan ishlashni yaxshi ko'raman. Yangi narsalarni o'rganish va tajriba orttirish — mening asosiy motivatsiyam.
+            Men orzularini amalga oshirishga intiluvchi dasturchiman. Dasturlash sohasida, ayniqsa backend yo&apos;nalishida chuqur bilimga ega bo&apos;lib, samaradorlikka intilaman. FastAPI, Django va Telegram botlar bilan ishlashni yaxshi ko&apos;raman. Yangi narsalarni o&apos;rganish va tajriba orttirish — mening asosiy motivatsiyam.
           </p>
           <div className="flex flex-row justify-start mt-8">
             <TabButton
               selectTab={() => handleTabChange("skills")}
               active={tab === "skills"}
             >
-              {" "}
-              Skills{" "}
+              Skills
             </TabButton>
             <TabButton
               selectTab={() => handleTabChange("education")}
               active={tab === "education"}
             >
-              {" "}
-              Education{" "}
+              Education
             </TabButton>
             <TabButton
               selectTab={() => handleTabChange("certifications")}
               active={tab === "certifications"}
             >
-              {" "}
-              Certifications{" "}
+              Certifications
             </TabButton>
           </div>
           <div className="mt-8">
