@@ -19,7 +19,7 @@ const HeroSection = () => {
             <span className="bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-600">
               Salom, men{" "}
             </span>
-            <br></br>
+            <br />
             <TypeAnimation
               sequence={[
                 "Azamov Husanjon",
@@ -41,14 +41,15 @@ const HeroSection = () => {
               href="/#contact"
               className="px-6 inline-block py-3 w-full sm:w-fit rounded-full mr-4 bg-[#0ef] from-primary-500 to-secondary-500 hover:bg-slate-200 text-[#121212]"
             >
-              Hire Me
+              Xabar yuborish
             </Link>
             <Link
-              href="/"
+              href="/images/resume.pdf"
+              target="_blank"
               className="text-[#0ef] px-1 inline-block py-1 w-full sm:w-fit rounded-full bg-[#0ef] from-primary-500 to-secondary-500 hover:bg-slate-800 text-white mt-3"
             >
               <span className="block bg-[#121212] hover:bg-slate-800 rounded-full px-5 py-2">
-                Download CV
+                Resume
               </span>
             </Link>
           </div>
