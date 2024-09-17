@@ -35,7 +35,7 @@ const EmailSection = () => {
       console.log("Message sent.");
       setEmailSubmitted(true);
     }
-  };
+  };  
 
   return (
     <section
@@ -120,7 +120,7 @@ const EmailSection = () => {
               className="bg-[#0ef] hover:bg-[#0ccde9] text-[#121212] font-medium py-2.5 px-5 rounded-lg w-full"
             >
               Yuborish
-            </button>
+            </button> 
           </form>
         )}
       </div>
