@@ -1,54 +1,50 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ProjectCard from "./ProjectCard";
 import ProjectTag from "./ProjectTag";
 import { motion, useInView } from "framer-motion";
-
-const projectsData = [
-  {
-    id: 1,
-    title: "West Burger bot",
-    description: "Bu degani, sichqoncha komponent ustiga kelganda.",
-    image: "/images/projects/image1.png",
-    tag: ["Hammasi", "Botlar"],
-    gitUrl: "https://github.com/Husanjonazamov/westfoodbot",
-    previewUrl: "https://t.me/westuzbot",
-    skils: ["React", "Node.js", "MongoDB"],
-  },
-  {
-    id: 2,
-    title: "Uzfilm bot",
-    description: "Bu degani, sichqoncha komponent ustiga kelganda",
-    image: "/images/projects/image2.png",
-    tag: ["Hammasi", "Botlar"],
-    gitUrl: "https://github.com/Husanjonazamov/Uzfilm-bot",
-    previewUrl: "https://t.me/UzFilm_robot",
-    skils: ["React", "Node.js", "MongoDB"],
-  },
-  {
-    id: 3,
-    title: "E-commerce Application",
-    description: "Bu degani, sichqoncha komponent ustiga kelganda",
-    image: "/images/projects/3.png",
-    tag: ["Hammasi", "Web"],
-    gitUrl: "https://github.com/Husanjonazamov/E-market-",
-    previewUrl: "/",
-    skils: ["React", "Node.js", "MongoDB"],
-  },
-];
+import axios from "axios";
 
 const ProjectsSection = () => {
   const [tag, setTag] = useState("Hammasi");
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+  const [projectsData, setProjectsData] = useState([]);
+  const [category, setCategory] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://portfolio.azamovdev.uz/api/v1/portfolio/")
+      .then((res) => {
+        setProjectsData(res.data.data.results);
+      })
+      .catch((err) => {
+        console.error("Error fetching projects data:", err);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("https://portfolio.azamovdev.uz/api/v1/category/")
+      .then((res) => {
+        const uniqueCategories = res.data.data.results.filter(
+          (category) => category.name !== "Hammasi"
+        );
+        setCategory(uniqueCategories);
+      })
+      .catch((err) => {
+        console.error("Error fetching category data:", err);
+      });
+  }, []);
 
   const handleTagChange = (newTag) => {
     setTag(newTag);
   };
 
-  const filteredProjects = projectsData.filter((project) =>
-    project.tag.includes(tag)
-  );
+  const filteredProjects =
+    tag === "Hammasi"
+      ? projectsData
+      : projectsData.filter((project) => project.category.name === tag);
 
   const cardVariants = {
     initial: { y: 50, opacity: 0 },
@@ -56,28 +52,27 @@ const ProjectsSection = () => {
   };
 
   return (
-    <section id="projects">
-      <h2 className="text-center text-4xl font-bold text-[#0ef] mt-4 mb-8 md:mb-12">
+    <section id="projects" className="mx-auto max-w-[1300px]">
+      <h2 className="mt-4 mb-8 md:mb-12 font-bold text-[#0ef] text-4xl text-center">
         Loyihalarim
       </h2>
-      <div className="text-white flex flex-row justify-center items-center gap-2 py-6">
+      <div className="flex flex-row justify-center items-center gap-2 py-6 text-white">
         <ProjectTag
-          onClick={handleTagChange}
+          onClick={() => handleTagChange("Hammasi")}
           name="Hammasi"
           isSelected={tag === "Hammasi"}
         />
-        <ProjectTag
-          onClick={handleTagChange}
-          name="Web"
-          isSelected={tag === "Web"}
-        />
-        <ProjectTag
-          onClick={handleTagChange}
-          name="Botlar"
-          isSelected={tag === "Botlar"}
-        />
+        {category.map((val) => (
+          <div key={val.id}>
+            <ProjectTag
+              onClick={() => handleTagChange(val.name)}
+              name={val.name}
+              isSelected={tag === val.name}
+            />
+          </div>
+        ))}
       </div>
-      <ul ref={ref} className="grid md:grid-cols-3 gap-8 md:gap-12">
+      <ul ref={ref} className="gap-8 md:gap-12 grid md:grid-cols-3">
         {filteredProjects.map((project, index) => (
           <motion.li
             key={index}
@@ -86,15 +81,17 @@ const ProjectsSection = () => {
             animate={isInView ? "animate" : "initial"}
             transition={{ duration: 0.3, delay: index * 0.4 }}
           >
-            <ProjectCard
-              key={project.id}
-              title={project.title}
-              description={project.description}
-              imgUrl={project.image}
-              gitUrl={project.gitUrl}
-              previewUrl={project.previewUrl}
-              skils={project.skils} // Skils propsini qo'shildi
-            />
+            <a href={project.project_url || "#"}>
+              <ProjectCard
+                key={project.id}
+                title={project.name}
+                description={project.description}
+                imgUrl={project.image}
+                gitUrl={project.git_url}
+                previewUrl={project.project_url}
+                skils={project.skils.map((skill) => skill.name).join(", ")}
+              />
+            </a>
           </motion.li>
         ))}
       </ul>
