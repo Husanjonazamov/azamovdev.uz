@@ -9,7 +9,6 @@ import Image from "next/image";
 import axios from 'axios';
 
 const EmailSection = () => {
-  const [emailSubmitted, setEmailSubmitted] = useState(false);
   const [name, setName] = useState('')
   const [subject, setSubject] = useState('')
   const [message, setMessage] = useState('')
@@ -45,18 +44,23 @@ const EmailSection = () => {
       message,
     }
 
-    axios.post('http://portfolio.azamovdev.uz/api/v1/contact/', UserContact, {
+    axios.post('https://portfolio.azamovdev.uz/api/v1/contact/', UserContact, {
       headers: {
         "Content-Type": "application/json"
       }
     })
       .then((res) => {
         console.log(res)
-        setEmailSubmitted(true);
+        alert('Email muvaffaqiyatli yuborildi!')
       })
       .catch((err) => {
         console.log(err)
         alert("Xatolik yuz berdi: Iltimos qayta urinib ko'ring!");
+      })
+      .finally(() => {
+        setName('')
+        setSubject('')
+        setMessage('')
       })
   };
 
@@ -84,66 +88,63 @@ const EmailSection = () => {
         </div>
       </div>
       <div>
-        {emailSubmitted ? (
-          <p className="mt-2 text-green-500 text-sm">
-            Email muvaffaqiyatli yuborildi!
-          </p>
-        ) : (
-          <form className="flex flex-col" onSubmit={handleSubmit}>
-            <div className="mb-6">
-              <label
-                htmlFor="email"
-                className="block mb-2 font-medium text-sm text-white"
-              >
-                Ism va Familyangizni kiriting
-              </label>
-              <input
-                onChange={(e) => { setName(e.target.value) }}
-                type="text"
-                id="text"
-                required
-                className="block border-[#33353F] bg-[#18191E] p-2.5 border rounded-lg w-full text-gray-100 text-sm placeholder-[#9CA2A9]"
-                placeholder="Husanjon Azamov"
-              />
-            </div>
-            <div className="mb-6">
-              <label
-                htmlFor="subject"
-                className="block mb-2 font-medium text-sm text-white"
-              >
-                Mavzu
-              </label>
-              <input
-                onChange={(e) => { setSubject(e.target.value) }}
-                type="text"
-                id="subject"
-                required
-                className="block border-[#33353F] bg-[#18191E] p-2.5 border rounded-lg w-full text-gray-100 text-sm placeholder-[#9CA2A9]"
-                placeholder="Faqat salom aytish"
-              />
-            </div>
-            <div className="mb-6">
-              <label
-                htmlFor="message"
-                className="block mb-2 font-medium text-sm text-white"
-              >
-                Xabar
-              </label>
-              <textarea
-                onChange={(e) => { setMessage(e.target.value) }}
-                id="message"
-                className="block border-[#33353F] bg-[#18191E] p-2.5 border rounded-lg w-full text-gray-100 text-sm placeholder-[#9CA2A9]"
-                placeholder="Xabar yuborish uchun"
-              />
-            </div>
-            <button
-              type="submit"
-              className="bg-[#0ef] hover:bg-[#0ccde9] px-5 py-2.5 rounded-lg w-full font-medium text-[#121212]"
+        <form className="flex flex-col" onSubmit={handleSubmit}>
+          <div className="mb-6">
+            <label
+              htmlFor="email"
+              className="block mb-2 font-medium text-sm text-white"
             >
-              Yuborish
-            </button>
-          </form>
-        )}
+              Ism va Familyangizni kiriting
+            </label>
+            <input
+              value={name}
+              onChange={(e) => { setName(e.target.value) }}
+              type="text"
+              id="text"
+              required
+              className="block border-[#33353F] bg-[#18191E] p-2.5 border rounded-lg w-full text-gray-100 text-sm placeholder-[#9CA2A9]"
+              placeholder="Husanjon Azamov"
+            />
+          </div>
+          <div className="mb-6">
+            <label
+              htmlFor="subject"
+              className="block mb-2 font-medium text-sm text-white"
+            >
+              Mavzu
+            </label>
+            <input
+              value={subject}
+              onChange={(e) => { setSubject(e.target.value) }}
+              type="text"
+              id="subject"
+              required
+              className="block border-[#33353F] bg-[#18191E] p-2.5 border rounded-lg w-full text-gray-100 text-sm placeholder-[#9CA2A9]"
+              placeholder="Faqat salom aytish"
+            />
+          </div>
+          <div className="mb-6">
+            <label
+              htmlFor="message"
+              className="block mb-2 font-medium text-sm text-white"
+            >
+              Xabar
+            </label>
+            <textarea
+              value={message}
+              onChange={(e) => { setMessage(e.target.value) }}
+              id="message"
+              className="block border-[#33353F] bg-[#18191E] p-2.5 border rounded-lg w-full text-gray-100 text-sm placeholder-[#9CA2A9]"
+              placeholder="Xabar yuborish uchun"
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-[#0ef] hover:bg-[#0ccde9] px-5 py-2.5 rounded-lg w-full font-medium text-[#121212]"
+          >
+            Yuborish
+          </button>
+        </form>
       </div>
     </section>
   );

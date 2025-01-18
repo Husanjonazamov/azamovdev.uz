@@ -2,8 +2,8 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="footer border z-10 border-t-[#33353F] border-l-transparent border-r-transparent text-white">
-      <div className="container p-12 flex justify-between">
+    <footer className="z-10 border border-t-[#33353F] border-r-transparent border-l-transparent text-white footer">
+      <div className="flex justify-between mx-auto p-12 max-w-[1350px]">
         <span className="text-[#0ef]">azamovdev</span>
         <p className="text-slate-600">All rights reserved.</p>
       </div>
