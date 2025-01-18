@@ -1,10 +1,10 @@
+"use client"; // Bu qatorni qo'shish, agar hook ishlatilsa
+
 import React from "react";
 import { CodeBracketIcon, EyeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 const ProjectCard = ({ imgUrl, title, description, gitUrl, previewUrl, skils }) => {
-  console.log(skils);  // Skils propini tekshirish
-
   return (
     <div className="max-w-screen-xl bg-[#161620] transition-all h-[450px] hover:scale-105 hover:shadow-2xl duration-300 p-4 rounded-[25px] mb-4 mx-auto">
       <div
@@ -33,7 +33,6 @@ const ProjectCard = ({ imgUrl, title, description, gitUrl, previewUrl, skils }) 
         </div>
       </div>
 
-      {/* Skill List */}
       <ul className="flex space-x-4 py-6 text-sm">
         {skils && Array.isArray(skils) && skils.length > 0 ? (
           skils.map((skill, index) => (
@@ -46,7 +45,6 @@ const ProjectCard = ({ imgUrl, title, description, gitUrl, previewUrl, skils }) 
         )}
       </ul>
 
-      {/* Project Title and Description */}
       <h5 className="text-[20px] py-4 font-semibold mb-1">{title}</h5>
       <p className="text-[#ADB7BE] text-sm">{description}</p>
     </div>

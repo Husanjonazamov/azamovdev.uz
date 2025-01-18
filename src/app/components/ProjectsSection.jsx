@@ -1,16 +1,12 @@
-"use client";
-import React, { useState, useRef, useEffect } from "react";
+"use client"; // Bu qatorni qo'shish
+
+import React, { useState, useEffect } from "react";
 import ProjectCard from "./ProjectCard";
-import ProjectTag from "./ProjectTag";
-import { motion, useInView } from "framer-motion";
 import axios from "axios";
 
 const ProjectsSection = () => {
   const [tag, setTag] = useState("Hammasi");
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
   const [projectsData, setProjectsData] = useState([]);
-  const [category, setCategory] = useState([]);
 
   useEffect(() => {
     axios
@@ -23,20 +19,6 @@ const ProjectsSection = () => {
       });
   }, []);
 
-  useEffect(() => {
-    axios
-      .get("https://portfolio.azamovdev.uz/api/v1/category/")
-      .then((res) => {
-        const uniqueCategories = res.data.data.results.filter(
-          (category) => category.name !== "Hammasi"
-        );
-        setCategory(uniqueCategories);
-      })
-      .catch((err) => {
-        console.error("Error fetching category data:", err);
-      });
-  }, []);
-
   const handleTagChange = (newTag) => {
     setTag(newTag);
   };
@@ -46,40 +28,19 @@ const ProjectsSection = () => {
       ? projectsData
       : projectsData.filter((project) => project.category.name === tag);
 
-  const cardVariants = {
-    initial: { y: 50, opacity: 0 },
-    animate: { y: 0, opacity: 1 },
-  };
-
   return (
-    <section id="projects" className="mx-auto max-w-[1300px]">
+    <section id="projects" className="mx-auto max-w-[1100px] px-4">
       <h2 className="mt-4 mb-8 md:mb-12 font-bold text-[#0ef] text-4xl text-center">
         Loyihalarim
       </h2>
-      <div className="flex flex-row justify-center items-center gap-2 py-6 text-white">
-        <ProjectTag
-          onClick={() => handleTagChange("Hammasi")}
-          name="Hammasi"
-          isSelected={tag === "Hammasi"}
-        />
-        {category.map((val) => (
-          <div key={val.id}>
-            <ProjectTag
-              onClick={() => handleTagChange(val.name)}
-              name={val.name}
-              isSelected={tag === val.name}
-            />
-          </div>
-        ))}
-      </div>
-      <ul ref={ref} className="gap-8 md:gap-12 grid md:grid-cols-3">
+      <p className="text-center text-[#adb7be] mb-6">
+        Bu yerda mening barcha loyihalarimni topishingiz mumkin.
+      </p>
+      <ul className="gap-8 md:gap-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         {filteredProjects.map((project, index) => (
-          <motion.li
+          <li
             key={index}
-            variants={cardVariants}
-            initial="initial"
-            animate={isInView ? "animate" : "initial"}
-            transition={{ duration: 0.3, delay: index * 0.4 }}
+            className="transition-all duration-300 hover:scale-105 hover:shadow-2xl"
           >
             <a href={project.project_url || "#"}>
               <ProjectCard
@@ -89,10 +50,10 @@ const ProjectsSection = () => {
                 imgUrl={project.image}
                 gitUrl={project.git_url}
                 previewUrl={project.project_url}
-                skils={project.skils.map((skill) => skill.name).join(", ")}
+                skils={project.skils.map((skill) => skill.name)}
               />
             </a>
-          </motion.li>
+          </li>
         ))}
       </ul>
     </section>
