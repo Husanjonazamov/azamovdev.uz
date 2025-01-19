@@ -1,12 +1,10 @@
-"use client"; // Bu qatorni qo'shish, agar hook ishlatilsa
-
 import React from "react";
 import { CodeBracketIcon, EyeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 const ProjectCard = ({ imgUrl, title, description, gitUrl, previewUrl, skils }) => {
   return (
-    <div className="max-w-screen-xl bg-[#161620] transition-all h-[450px] hover:scale-105 hover:shadow-2xl duration-300 p-4 rounded-[25px] mb-4 mx-auto">
+    <div className="max-w-screen-xl bg-[#161620] transition-all h-[470px] hover:scale-105 hover:shadow-2xl duration-300 p-4 rounded-[25px] mb-4 mx-auto">
       <div
         className="h-52 md:h-55 rounded-xl relative group overflow-hidden shadow-md hover:shadow-2xl transition-all rounded-[20px] duration-500 bg-[#242526]"
         style={{
@@ -33,10 +31,13 @@ const ProjectCard = ({ imgUrl, title, description, gitUrl, previewUrl, skils }) 
         </div>
       </div>
 
-      <ul className="flex space-x-4 py-6 text-sm">
+      <ul className="py-6 text-sm">
         {skils && Array.isArray(skils) && skils.length > 0 ? (
           skils.map((skill, index) => (
-            <li key={index} className="py-1 px-2 rounded-[10px] bg-[#161630] text-[#61dafb]">
+            <li
+              key={index}
+              className="py-1 px-2 mb-2 ml-1 rounded-[10px] bg-[#161630] text-[#61dafb] inline-block"
+            >
               {skill}
             </li>
           ))
@@ -44,8 +45,7 @@ const ProjectCard = ({ imgUrl, title, description, gitUrl, previewUrl, skils }) 
           <li>No skills available</li>
         )}
       </ul>
-
-      <h5 className="text-[20px] py-4 font-semibold mb-1">{title}</h5>
+      <h5 className="text-[20px] font-semibold mb-5">{title}</h5>
       <p className="text-[#ADB7BE] text-sm">{description}</p>
     </div>
   );
