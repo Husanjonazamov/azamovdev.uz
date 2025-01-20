@@ -1,24 +1,34 @@
-"use client"; // Bu qatorni qo'shish
+"use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import ProjectCard from "./ProjectCard";
+import ProjectTag from "./ProjectTag";
+
+const ProjectsSection = () => {
   const ref = useRef(null);
   const [projectsData, setProjectsData] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [tag, setTag] = useState("Hammasi");
+
 
   useEffect(() => {
     axios
       .get("https://portfolio.azamovdev.uz/api/v1/portfolio/")
       .then((res) => {
         setProjectsData(res.data.data.results);
+        setCategory(res.data.data.categories);
       })
       .catch((err) => {
         console.error("Error fetching projects data:", err);
       });
   }, []);
 
+
   const handleTagChange = (newTag) => {
     setTag(newTag);
   };
+
 
   const filteredProjects =
     tag === "Hammasi"
@@ -30,6 +40,7 @@ import ProjectCard from "./ProjectCard";
       <h2 className="mt-4 mb-8 md:mb-12 font-bold text-[#0ef] text-2xl text-center sm:text-3xl md:text-4xl">
         Loyihalarim
       </h2>
+
       <div className="flex flex-wrap justify-center items-center gap-2 py-6 text-white">
         <ProjectTag
           onClick={() => handleTagChange("Hammasi")}
@@ -46,6 +57,7 @@ import ProjectCard from "./ProjectCard";
           </div>
         ))}
       </div>
+
       <ul
         ref={ref}
         className="gap-8 md:gap-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
