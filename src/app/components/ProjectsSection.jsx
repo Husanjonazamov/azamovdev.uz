@@ -2,13 +2,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import ProjectCard from "./ProjectCard";
 import ProjectTag from "./ProjectTag";
-import { motion, useInView } from "framer-motion";
 import axios from "axios";
 
 const ProjectsSection = () => {
   const [tag, setTag] = useState("Hammasi");
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
   const [projectsData, setProjectsData] = useState([]);
   const [category, setCategory] = useState([]);
 
@@ -46,17 +44,12 @@ const ProjectsSection = () => {
       ? projectsData
       : projectsData.filter((project) => project.category.name === tag);
 
-  const cardVariants = {
-    initial: { y: 50, opacity: 0 },
-    animate: { y: 0, opacity: 1 },
-  };
-
   return (
-    <section id="projects" className="mx-auto max-w-[1300px]">
-      <h2 className="mt-4 mb-8 md:mb-12 font-bold text-[#0ef] text-4xl text-center">
+    <section id="projects" className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1300px]">
+      <h2 className="mt-4 mb-8 md:mb-12 font-bold text-[#0ef] text-2xl text-center sm:text-3xl md:text-4xl">
         Loyihalarim
       </h2>
-      <div className="flex flex-row justify-center items-center gap-2 py-6 text-white">
+      <div className="flex flex-wrap justify-center items-center gap-2 py-6 text-white">
         <ProjectTag
           onClick={() => handleTagChange("Hammasi")}
           name="Hammasi"
@@ -72,18 +65,17 @@ const ProjectsSection = () => {
           </div>
         ))}
       </div>
-      <ul ref={ref} className="gap-8 md:gap-12 grid md:grid-cols-3">
-        {filteredProjects.map((project, index) => (
-          <motion.li
-            key={index}
-            variants={cardVariants}
-            initial="initial"
-            animate={isInView ? "animate" : "initial"}
-            transition={{ duration: 0.3, delay: index * 0.4 }}
-          >
-            <a href={project.project_url || "#"}>
+      <ul
+        ref={ref}
+        className="gap-8 md:gap-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+      >
+        {filteredProjects.map((project) => (
+          <li key={project.id} className="flex flex-col items-center">
+            <a
+              href={project.project_url || "#"}
+              className="w-full max-w-[350px] transition-transform duration-200 hover:scale-105"
+            >
               <ProjectCard
-                key={project.id}
                 title={project.name}
                 description={project.description}
                 imgUrl={project.image}
@@ -92,7 +84,7 @@ const ProjectsSection = () => {
                 skils={project.skils.map((skill) => skill.name).join(", ")}
               />
             </a>
-          </motion.li>
+          </li>
         ))}
       </ul>
     </section>
