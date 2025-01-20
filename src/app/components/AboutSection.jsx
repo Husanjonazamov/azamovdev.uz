@@ -5,21 +5,6 @@ import TabButton from "./TabButton";
 
 const TAB_DATA = [
   {
-    title: "Ko&apos;nikmalar",
-    id: "skills",
-    content: (
-      <ul className="list-disc pl-2">
-        <li>Python</li>
-        <li>Django</li>
-        <li>PostgreSQL</li>
-        <li>Django-rest-framework</li>
-        <li>git</li>
-        <li>linux</li>
-        <li>Sqlite3</li>
-      </ul>
-    ),
-  },
-  {
     title: "Ta&apos;lim",
     id: "education",
     content: (
@@ -42,7 +27,7 @@ const TAB_DATA = [
 ];
 
 const AboutSection = () => {
-  const [tab, setTab] = useState("skills");
+  const [tab, setTab] = useState("education");
   const [isPending, startTransition] = useTransition();
 
   const handleTabChange = (id) => {
@@ -62,22 +47,16 @@ const AboutSection = () => {
           </p>
           <div className="flex flex-row justify-start mt-8">
             <TabButton
-              selectTab={() => handleTabChange("skills")}
-              active={tab === "skills"}
-            >
-              Skills
-            </TabButton>
-            <TabButton
               selectTab={() => handleTabChange("education")}
               active={tab === "education"}
             >
-              Education
+              Ta&apos;lim
             </TabButton>
             <TabButton
               selectTab={() => handleTabChange("certifications")}
               active={tab === "certifications"}
             >
-              Certifications
+              Sertifikatlar
             </TabButton>
           </div>
           <div className="mt-8">

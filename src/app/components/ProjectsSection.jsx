@@ -1,14 +1,9 @@
-"use client";
-import React, { useState, useRef, useEffect } from "react";
-import ProjectCard from "./ProjectCard";
-import ProjectTag from "./ProjectTag";
-import axios from "axios";
+"use client"; // Bu qatorni qo'shish
 
-const ProjectsSection = () => {
-  const [tag, setTag] = useState("Hammasi");
+import React, { useState, useEffect } from "react";
+import ProjectCard from "./ProjectCard";
   const ref = useRef(null);
   const [projectsData, setProjectsData] = useState([]);
-  const [category, setCategory] = useState([]);
 
   useEffect(() => {
     axios
@@ -18,20 +13,6 @@ const ProjectsSection = () => {
       })
       .catch((err) => {
         console.error("Error fetching projects data:", err);
-      });
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get("https://portfolio.azamovdev.uz/api/v1/category/")
-      .then((res) => {
-        const uniqueCategories = res.data.data.results.filter(
-          (category) => category.name !== "Hammasi"
-        );
-        setCategory(uniqueCategories);
-      })
-      .catch((err) => {
-        console.error("Error fetching category data:", err);
       });
   }, []);
 
@@ -81,7 +62,7 @@ const ProjectsSection = () => {
                 imgUrl={project.image}
                 gitUrl={project.git_url}
                 previewUrl={project.project_url}
-                skils={project.skils.map((skill) => skill.name).join(", ")}
+                skils={project.skils.map((skill) => skill.name)}
               />
             </a>
           </li>
