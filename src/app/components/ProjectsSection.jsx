@@ -2,10 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import ProjectCard from "./ProjectCard";
-import axios from "axios";
-
-const ProjectsSection = () => {
-  const [tag, setTag] = useState("Hammasi");
+  const ref = useRef(null);
   const [projectsData, setProjectsData] = useState([]);
 
   useEffect(() => {
@@ -29,22 +26,37 @@ const ProjectsSection = () => {
       : projectsData.filter((project) => project.category.name === tag);
 
   return (
-    <section id="projects" className="mx-auto max-w-[1100px] px-4">
-      <h2 className="mt-4 mb-8 md:mb-12 font-bold text-[#0ef] text-4xl text-center">
+    <section id="projects" className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1300px]">
+      <h2 className="mt-4 mb-8 md:mb-12 font-bold text-[#0ef] text-2xl text-center sm:text-3xl md:text-4xl">
         Loyihalarim
       </h2>
-      <p className="text-center text-[#adb7be] mb-6">
-        Bu yerda mening barcha loyihalarimni topishingiz mumkin.
-      </p>
-      <ul className="gap-8 md:gap-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-        {filteredProjects.map((project, index) => (
-          <li
-            key={index}
-            className="transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-          >
-            <a href={project.project_url || "#"}>
+      <div className="flex flex-wrap justify-center items-center gap-2 py-6 text-white">
+        <ProjectTag
+          onClick={() => handleTagChange("Hammasi")}
+          name="Hammasi"
+          isSelected={tag === "Hammasi"}
+        />
+        {category.map((val) => (
+          <div key={val.id}>
+            <ProjectTag
+              onClick={() => handleTagChange(val.name)}
+              name={val.name}
+              isSelected={tag === val.name}
+            />
+          </div>
+        ))}
+      </div>
+      <ul
+        ref={ref}
+        className="gap-8 md:gap-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+      >
+        {filteredProjects.map((project) => (
+          <li key={project.id} className="flex flex-col items-center">
+            <a
+              href={project.project_url || "#"}
+              className="w-full max-w-[350px] transition-transform duration-200 hover:scale-105"
+            >
               <ProjectCard
-                key={project.id}
                 title={project.name}
                 description={project.description}
                 imgUrl={project.image}

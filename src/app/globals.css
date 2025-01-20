@@ -23,4 +23,5 @@ body {
       rgb(var(--background-start-rgb)),
       rgb(var(--background-end-rgb))
     );
+    transform: none;
 }
