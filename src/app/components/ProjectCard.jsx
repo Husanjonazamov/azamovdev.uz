@@ -7,6 +7,14 @@ const ProjectCard = ({ imgUrl, title, description, gitUrl, previewUrl, skils }) 
 
   return (
     <div className="bg-[#161620] hover:shadow-2xl mx-auto mb-4 p-4 rounded-[25px] max-w-screen-xl h-[450px] transition-all duration-300 hover:scale-105">
+      <div
+        className="relative bg-[#242526] shadow-md hover:shadow-2xl rounded-[20px] h-52 md:h-55 transition-all duration-500 overflow-hidden group"
+        style={{
+          background: `url(${imgUrl})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
         <div className="group-hover:flex top-0 left-0 absolute flex justify-center items-center bg-[#242526] bg-opacity-0 group-hover:bg-opacity-80 w-full h-full transition-all duration-300">
           <div className="flex justify-center items-center space-x-4">
             <Link
@@ -25,7 +33,8 @@ const ProjectCard = ({ imgUrl, title, description, gitUrl, previewUrl, skils }) 
         </div>
       </div>
 
-      <ul className="py-6 text-sm">
+      {/* Skill List */}
+      <ul className="flex space-x-4 py-6 text-sm">
         {skils && Array.isArray(skils) && skils.length > 0 ? (
           skils.map((skill, index) => (
             <li key={index} className="bg-[#161630] px-2 py-1 rounded-[10px] text-[#61dafb]">
@@ -36,6 +45,7 @@ const ProjectCard = ({ imgUrl, title, description, gitUrl, previewUrl, skils }) 
           <li>No skills available</li>
         )}
       </ul>
+
       <h5 className="mb-1 py-4 font-semibold text-[20px]">{title}</h5>
       <p className="text-[#ADB7BE] text-sm">{description}</p>
     </div>
