@@ -1,10 +1,12 @@
-version: '3'
+version: '3.8'
+
 services:
   nextjs:
-    build: .
+    build:
+      context: .
     ports:
-      - "3000:3000" 
+      - "7809:3000" 
     volumes:
-      - .:/app 
-    environment:
-      - NODE_ENV=development  
+      - .:/app
+      - /app/node_modules
+    command: npm run dev
