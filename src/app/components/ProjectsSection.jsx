@@ -1,15 +1,22 @@
-"use client"; // Bu qatorni qo'shish
+"use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import ProjectCard from "./ProjectCard";
-  const ref = useRef(null);
+import ProjectTag from "./ProjectTag"; 
+
+const ProjectsSection = () => {
+  const ref = useRef(null); 
   const [projectsData, setProjectsData] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [tag, setTag] = useState("Hammasi");
 
   useEffect(() => {
     axios
       .get("https://portfolio.azamovdev.uz/api/v1/portfolio/")
       .then((res) => {
-        setProjectsData(res.data.data.results);
+        setProjectsData(res.data.data.results); 
+        setCategory(res.data.data.categories || []); 
       })
       .catch((err) => {
         console.error("Error fetching projects data:", err);
@@ -36,7 +43,7 @@ import ProjectCard from "./ProjectCard";
           name="Hammasi"
           isSelected={tag === "Hammasi"}
         />
-        {category.map((val) => (
+        {category && category.length > 0 ? category.map((val) => (
           <div key={val.id}>
             <ProjectTag
               onClick={() => handleTagChange(val.name)}
@@ -44,25 +51,23 @@ import ProjectCard from "./ProjectCard";
               isSelected={tag === val.name}
             />
           </div>
-        ))}
+        )) : null}
       </div>
       <ul
         ref={ref}
-        className="gap-8 md:gap-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-      >
+        className="gap-8 md:gap-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-max">
         {filteredProjects.map((project) => (
           <li key={project.id} className="flex flex-col items-center">
             <a
               href={project.project_url || "#"}
-              className="w-full max-w-[350px] transition-transform duration-200 hover:scale-105"
-            >
+              className="w-full max-w-[350px] transition-transform duration-200 hover:scale-105">
               <ProjectCard
                 title={project.name}
                 description={project.description}
                 imgUrl={project.image}
                 gitUrl={project.git_url}
                 previewUrl={project.project_url}
-                skils={project.skils.map((skill) => skill.name)}
+                skils={project.skils && project.skils.length > 0 ? project.skils.map(skill => skill.name) : []}
               />
             </a>
           </li>
