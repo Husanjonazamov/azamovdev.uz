@@ -60,26 +60,26 @@ const achievementsList = [
 
 const AchievementsSection = () => {
   return (
-    <div className="py-6 px-4 sm:py-12 xl:px-12">
-      <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8 text-[#0ef]">Texnologiyalar</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="px-4 xl:px-12 py-6 sm:py-12">
+      <h2 className="mb-8 font-bold text-[#0ef] text-3xl text-center sm:text-4xl">Texnologiyalar</h2>
+      <div className="gap-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
         {achievementsList.map((achievement, index) => (
           <div
             key={index}
-            className="flex flex-col items-center justify-center p-3 bg-[#161620] rounded-lg shadow-md transition-all duration-500 transform hover:scale-105 hover:shadow-xl"
+            className="flex flex-col justify-center items-center bg-[#161620] shadow-md hover:shadow-xl p-3 rounded-lg transform transition-all duration-500 hover:scale-105"
             style={{
               height: "110px", // Cardning balandligini 120px ga kichraytirdim
             }}
           >
             <div
-              className="text-3xl sm:text-4xl mb-2" // Icon textini yanada kichikroq qildim
+              className="mb-2 text-3xl sm:text-4xl" // Icon textini yanada kichikroq qildim
               style={{
                 color: achievement.color,
               }}
             >
               <FontAwesomeIcon icon={achievement.icon} />
             </div>
-            <p className="text-white text-xs sm:text-sm font-semibold">{achievement.metric}</p> {/* Matnni kichikroq qildim */}
+            <p className="font-semibold text-white text-xs sm:text-sm">{achievement.metric}</p> {/* Matnni kichikroq qildim */}
           </div>
         ))}
       </div>
