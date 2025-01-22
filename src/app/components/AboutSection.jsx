@@ -8,7 +8,7 @@ const TAB_DATA = [
     title: "Ta&apos;lim",
     id: "education",
     content: (
-      <ul className="list-disc pl-2">
+      <ul className="pl-2 list-disc">
         <li>IT centerda 6 oy backend kursini o&apos;qidim va ko&apos;plab texnologiyalarni o&apos;rgandim</li>
         <li>Online tarzda ko&apos;plar (PostgreSQL, Sqlite3, Telegram botlar) va shunga o&apos;xshagan texnologiyalarni o&apos;rgandim</li>
       </ul>
@@ -18,7 +18,7 @@ const TAB_DATA = [
     title: "Sertifikatlar",
     id: "certifications",
     content: (
-      <ul className="list-disc pl-2">
+      <ul className="pl-2 list-disc">
         <li>IT center o&apos;quv markazi sertifikati</li>
         {/* <li>Google Professional Cloud Developer</li> */}
       </ul>
@@ -38,10 +38,10 @@ const AboutSection = () => {
 
   return (
     <section className="text-white" id="about">
-      <div className="md:grid md:grid-cols-2 gap-8 items-center py-8 px-4 xl:gap-16 sm:py-16 xl:px-16">
+      <div className="items-center gap-8 xl:gap-16 md:grid md:grid-cols-2 px-4 xl:px-16 py-8 sm:py-16">
         <Image src="/images/project.png" width={500} height={500} alt="Project Image" />
-        <div className="mt-4 md:mt-0 text-left flex flex-col h-full">
-          <h2 className="text-4xl text-[#0ef] font-bold text-white mb-8">Ma&apos;lumot</h2>
+        <div className="flex flex-col mt-4 md:mt-0 h-full text-left">
+          <h2 className="mb-8 font-bold text-4xl text-white">Ma&apos;lumot</h2>
           <p className="text-base lg:text-lg">
             Men orzularini amalga oshirishga intiluvchi dasturchiman. Dasturlash sohasida, ayniqsa backend yo&apos;nalishida chuqur bilimga ega bo&apos;lib, samaradorlikka intilaman. FastAPI, Django va Telegram botlar bilan ishlashni yaxshi ko&apos;raman. Yangi narsalarni o&apos;rganish va tajriba orttirish — mening asosiy motivatsiyam.
           </p>
